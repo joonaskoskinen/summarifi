@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
@@ -781,8 +781,12 @@ Ja poimii pääkohdat, TODO:t ja deadlinet."
                         <div className="space-y-3">
                           {result.deadlines
                             .sort((a, b) => {
-                              const priorityOrder = { high: 3, medium: 2, low: 1 }
-                              return (priorityOrder[b.priority] || 2) - (priorityOrder[a.priority] || 2)
+                              const priorityOrder: Record<string, number> = { high: 3, medium: 2, low: 1 }
+                              const bPriority =
+                                b.priority && typeof b.priority === "string" ? priorityOrder[b.priority] || 2 : 2
+                              const aPriority =
+                                a.priority && typeof a.priority === "string" ? priorityOrder[a.priority] || 2 : 2
+                              return bPriority - aPriority
                             })
                             .map((deadline, index) => {
                               const priorityConfig = {
