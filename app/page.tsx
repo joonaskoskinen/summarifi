@@ -795,7 +795,13 @@ Ja poimii pääkohdat, TODO:t ja deadlinet."
                                 low: { icon: "📝", label: "Normaali", color: "blue" },
                               }
 
-                              const config = priorityConfig[deadline.priority] || priorityConfig.medium
+                              const priorityKey =
+                                deadline.priority &&
+                                typeof deadline.priority === "string" &&
+                                deadline.priority in priorityConfig
+                                  ? (deadline.priority as keyof typeof priorityConfig)
+                                  : "medium"
+                              const config = priorityConfig[priorityKey]
 
                               return (
                                 <div
