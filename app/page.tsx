@@ -105,7 +105,7 @@ const downloadSummary = (summary: SummaryResult, usageData: any) => {
   URL.revokeObjectURL(url)
 }
 
-export default function SummariApp() {
+export default function HomePage() {
   const [content, setContent] = useState("")
   const [result, setResult] = useState<SummaryResult | null>(null)
   const [isLoading, setIsLoading] = useState(false)
