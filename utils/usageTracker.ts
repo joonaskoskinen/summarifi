@@ -23,21 +23,35 @@ export function getUsageData(): UsageData {
   }
 
   try {
-    const data = JSON.parse(stored)
+    const data: UsageData = JSON.parse(stored)
+
+    // Validoi data structure
+    if (typeof data !== "object" || data === null) {
+      throw new Error("Invalid data structure")
+    }
+
+    // Varmista että kaikki kentät ovat olemassa
+    const validatedData: UsageData = {
+      count: typeof data.count === "number" ? data.count : 0,
+      lastReset: typeof data.lastReset === "string" ? data.lastReset : new Date().toDateString(),
+      isPremium: typeof data.isPremium === "boolean" ? data.isPremium : false,
+      customerId: typeof data.customerId === "string" ? data.customerId : undefined,
+      activatedAt: typeof data.activatedAt === "string" ? data.activatedAt : undefined,
+    }
 
     // Reset count daily (mutta EI premium-statusta!)
     const today = new Date().toDateString()
-    if (data.lastReset !== today) {
-      data.count = 0
-      data.lastReset = today
+    if (validatedData.lastReset !== today) {
+      validatedData.count = 0
+      validatedData.lastReset = today
       // Säilytetään premium-status ja customerId
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(validatedData))
     }
 
-    return data
+    return validatedData
   } catch (error) {
-    console.warn("Korruptoitunut localStorage data, luodaan uusi")
-    const newData = { count: 0, lastReset: new Date().toDateString(), isPremium: false }
+    console.warn("Korruptoitunut localStorage data, luodaan uusi:", error)
+    const newData: UsageData = { count: 0, lastReset: new Date().toDateString(), isPremium: false }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(newData))
     return newData
   }
