@@ -156,14 +156,14 @@ Vastaa VAIN kelvollisella JSON:lla tässä tarkkassa muodossa:
           : "Yhteenvedon luominen epäonnistui",
       keyPoints: Array.isArray(parsed.keyPoints)
         ? parsed.keyPoints
-            .filter((item) => typeof item === "string" && item.trim())
-            .map((item) => item.trim())
+            .filter((item: any) => typeof item === "string" && item.trim())
+            .map((item: string) => item.trim())
             .slice(0, 6)
         : ["Tärkeimpien asioiden luominen epäonnistui"],
       actionItems: Array.isArray(parsed.actionItems)
         ? parsed.actionItems
-            .filter((item) => typeof item === "string" && item.trim())
-            .map((item) => item.trim())
+            .filter((item: any) => typeof item === "string" && item.trim())
+            .map((item: string) => item.trim())
             .slice(0, 6)
         : ["Toimenpiteiden luominen epäonnistui"],
       responseTemplate:
@@ -172,8 +172,8 @@ Vastaa VAIN kelvollisella JSON:lla tässä tarkkassa muodossa:
           : undefined,
       deadlines: Array.isArray(parsed.deadlines)
         ? parsed.deadlines
-            .filter((item) => item && typeof item === "object" && item.task && item.person && item.deadline)
-            .map((item) => ({
+            .filter((item: any) => item && typeof item === "object" && item.task && item.person && item.deadline)
+            .map((item: any) => ({
               ...item,
               priority: item.priority || "medium",
             }))
@@ -181,8 +181,8 @@ Vastaa VAIN kelvollisella JSON:lla tässä tarkkassa muodossa:
         : undefined,
       pendingDecisions: Array.isArray(parsed.pendingDecisions)
         ? parsed.pendingDecisions
-            .filter((item) => typeof item === "string" && item.trim())
-            .map((item) => item.trim())
+            .filter((item: any) => typeof item === "string" && item.trim())
+            .map((item: string) => item.trim())
             .slice(0, 4)
         : undefined,
     }
