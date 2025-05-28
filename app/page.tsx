@@ -206,7 +206,13 @@ Seuraava kokous on ensi viikon keskiviikkona klo 13:00.`
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
-      <h1 className="text-4xl font-bold">Summari toimii!</h1>
+      <div className="text-center">
+        <h1 className="text-6xl font-bold text-gray-900 mb-4">Summari</h1>
+        <p className="text-xl text-gray-600">Älykkäät yhteenvedot suomeksi</p>
+        <div className="mt-8 p-4 bg-green-100 rounded-lg">
+          <p className="text-green-800 font-semibold">✅ Sivu toimii!</p>
+        </div>
+      </div>
     </div>
   )
 }
